@@ -28,13 +28,14 @@
         </div>
         <h6 style="line-height: 1.4;">Head Point: <b>{{ programmeDetail?.headpoint }}</b></h6>
         <h6 style="line-height: 1.4;">Target Head Point: <b>{{ programmeDetail?.headpoint }} / {{
-        programmeDetail?.targetjbeheadpoint }}</b></h6>
+        programmeDetail?.minparticipant }}</b></h6>
         <h6 style="line-height: 1.4;">Winning Point: <b>{{ programmeDetail?.winningpoint }}</b></h6>
-        <h6 style="line-height: 1.4;">Target Winning Point: <b>{{ programmeDetail?.headpoint }} / {{
+        <h6 style="line-height: 1.4;">Target Winning Point: <b>{{ programmeDetail?.winningpoint }} / {{
         programmeDetail?.targetjbewinningpoint }}</b></h6>
         <h6 style="line-height: 1.4;">Minimum Participants: <b>{{ programmeDetail?.minparticipant }}</b></h6>
         <h6 style="line-height: 1.4;">Only President: <a-checkbox :checked="programmeDetail?.onlypresident == 'TRUE'"
             readonly></a-checkbox></h6>
+        <br/>
         <h6>Remark:</h6>
         <p>{{ programmeDetail?.remark ?? '~ No Remark ~' }}</p>
 

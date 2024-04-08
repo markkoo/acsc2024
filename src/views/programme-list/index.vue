@@ -61,8 +61,8 @@
                       <a-col style="text-align: center;">
                         <p>Joined</p>
                         <h3
-                          :style="`color: ${parseInt(`${item.totalParticipants}`) < parseInt(`${item['TargetJBEHeadPoint']}`) ? 'orange' : ''}; font-weight: 700;`">
-                          {{ item.totalParticipants }} / {{ item['TargetJBEHeadPoint'] ?? 0 }}</h3>
+                          :style="`color: ${parseInt(`${item.totalParticipants}`) < parseInt(`${item['MinParticipant']}`) ? 'red' : 'green'}; font-weight: 700;`">
+                          {{ item.totalParticipants }} / {{ item['MinParticipant'] ?? 0 }}</h3>
                       </a-col>
                     </a-row>
                   </a-col>

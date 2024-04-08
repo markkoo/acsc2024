@@ -58,15 +58,15 @@ const router: Router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const user = store.getters.getUser
   const token = store.getters.getToken
+  const userName = to.params.member
 
   if (to.meta.needAuth == true) {
-    if (!isEmpty(user) && !isEmpty(token)) {
+    if (!isEmpty(token)) {
       const response = await getData('Members')
       const parsedMembers = tableToJson(response.table.cols, response.table.rows)
 
-      const currentUser = parsedMembers.filter((e: any) => e.id === user.id)
+      const currentUser = parsedMembers.filter((e: any) => e.Name === userName)
 
       if (currentUser.length > 0 && currentUser[0].Token === token) {
         next()
@@ -74,6 +74,7 @@ router.beforeEach(async (to, from, next) => {
       }
     }
 
+    store.dispatch('logout')
     next({
       name: 'index'
     })

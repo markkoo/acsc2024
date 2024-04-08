@@ -3,7 +3,7 @@
     <div style="padding-bottom: 56px;">
       <router-view></router-view>
     </div>
-    <div class="container" style="padding: 0; position: fixed; bottom: 0;">
+    <div class="container" style="padding: 0; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);">
       <a-card :body-style="{ padding: `0` }">
         <a-row align="stretch">
           <a-col flex="1">

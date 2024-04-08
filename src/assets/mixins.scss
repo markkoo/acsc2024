@@ -1,0 +1,27 @@
+@mixin ellipsis($row, $lineHeight, $fontSize) {
+    -webkit-line-clamp: $row;
+    line-height: $lineHeight;
+    font-size: $fontSize !important;
+    max-height: $row * $lineHeight * $fontSize;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin flex($row, $justify, $align) {
+    display: flex;
+    flex-direction: $row;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin image($prop) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    @if $prop != "" {
+        object-fit: $prop;
+    }
+}

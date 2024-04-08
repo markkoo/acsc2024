@@ -1,0 +1,149 @@
+$space: 8px;
+
+$min-xs: 1;
+$max-xs: 568;
+$min-sm: 569;
+$max-sm: 768;
+$min-md: 769;
+$max-md: 991;
+$min-lg: 992;
+$max-lg: 1366;
+$min-xl: 1367;
+$max-xl: 9999;
+
+$breakpoint-up-xs: "(min-width: " + $min-xs + "px)";
+$breakpoint-up-sm: "(min-width: " + $min-sm + "px)";
+$breakpoint-up-md: "(min-width: " + $min-md + "px)";
+$breakpoint-up-lg: "(min-width: " + $min-lg + "px)";
+$breakpoint-up-xl: "(min-width: " + $min-xl + "px)";
+
+$breakpoint-down-xs: "(max-width: " + $max-xs + "px)";
+$breakpoint-down-sm: "(max-width: " + $max-sm + "px)";
+$breakpoint-down-md: "(max-width: " + $max-md + "px)";
+$breakpoint-down-lg: "(max-width: " + $max-lg + "px)";
+$breakpoint-down-xl: "(max-width: " + $max-xl + "px)";
+
+$breakpoint-only-xs: "(min-width: " + $min-xs + "px) and (max-width: " + $max-xs + "px)";
+$breakpoint-only-sm: "(min-width: " + $min-sm + "px) and (max-width: " + $max-sm + "px)";
+$breakpoint-only-md: "(min-width: " + $min-md + "px) and (max-width: " + $max-md + "px)";
+$breakpoint-only-lg: "(min-width: " + $min-lg + "px) and (max-width: " + $max-lg + "px)";
+$breakpoint-only-xl: "(min-width: " + $min-xl + "px) and (max-width: " + $max-xl + "px)";
+
+$container-sm-max-width: 100%;
+$container-md-max-width: 100%;
+$container-lg-max-width: 768px;
+$container-xl-max-width: 768px;
+
+$container-padding: #{$space * 6};
+$container-sm-padding: #{$space * 2};
+$container-xs-padding: #{$space * 2};
+
+$color-selection-bg: $color-main;
+$color-selection-fg: white;
+
+$font-family-1:
+    "Inter Tight",
+    -apple-system,
+    BlinkMacSystemFont,
+    Helvetica Neue,
+    PingFang SC,
+    Microsoft YaHei,
+    Source Han Sans SC,
+    Noto Sans CJK SC,
+    WenQuanYi Micro Hei,
+    sans-serif;
+
+$font-family-2:
+    "",
+    -apple-system,
+    BlinkMacSystemFont,
+    Helvetica Neue,
+    PingFang SC,
+    Microsoft YaHei,
+    Source Han Sans SC,
+    Noto Sans CJK SC,
+    WenQuanYi Micro Hei,
+    sans-serif;
+
+$font-family-3:
+    "",
+    -apple-system,
+    BlinkMacSystemFont,
+    Helvetica Neue,
+    PingFang SC,
+    Microsoft YaHei,
+    Source Han Sans SC,
+    Noto Sans CJK SC,
+    WenQuanYi Micro Hei,
+    sans-serif;
+
+$h1: 28px;
+$h2: 24px;
+$h3: 18px;
+$h4: 16px;
+$h5: 15px;
+$h6: 14px;
+$p: 13px;
+
+$letter-spacing-h1: normal;
+$line-height-h1: 1.3;
+$margin-h1: 0 0 0;
+
+$letter-spacing-h2: normal;
+$line-height-h2: 1.5;
+$margin-h2: 0 0 0;
+
+$letter-spacing-h3: normal;
+$line-height-h3: 1.5;
+$margin-h3: 0 0 0;
+
+$letter-spacing-h4: normal;
+$line-height-h4: 1.5;
+$margin-h4: 0 0 0;
+
+$letter-spacing-h5: normal;
+$line-height-h5: 1.5;
+$margin-h5: 0 0 0;
+
+$letter-spacing-h6: normal;
+$line-height-h6: 1.5;
+$margin-h6: 0 0 0;
+
+$letter-spacing-p: normal;
+$line-height-p: 1.5;
+$margin-p: 0 0 0;
+
+$font-family-h1: $font-family-1;
+$color-h1: $color-1;
+$font-weight-h1: 400;
+
+$font-family-h2: $font-family-1;
+$color-h2: $color-1;
+$font-weight-h2: 600;
+
+$font-family-h3: $font-family-1;
+$color-h3: $color-1;
+$font-weight-h3: 400;
+
+$font-family-h4: $font-family-2;
+$color-h4: $color-1;
+$font-weight-h4: 400;
+
+$font-family-h5: $font-family-2;
+$color-h5: $color-1;
+$font-weight-h5: 400;
+
+$font-family-h6: $font-family-2;
+$color-h6: $color-1;
+$font-weight-h6: 400;
+
+$font-family-p: $font-family-2;
+$color-p: $color-1;
+$font-weight-p: 400;
+
+$body-background-color: $color-background;
+$body-font-family: $font-family-1;
+$body-font-size: $p;
+
+$color-placeholder: $color-3;
+$font-weight: 400;

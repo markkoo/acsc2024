@@ -78,7 +78,6 @@ export default {
       const programmeResponse = res[0]
       const memberResponse = res[1]
 
-
       const parsedProgrammes = tableToJson(
         programmeResponse.table.cols,
         programmeResponse.table.rows
@@ -97,14 +96,35 @@ export default {
       }))
     })
 
-    const overallPoints = computed(() => {
-      const val = programmes.value.map((e) => e.totalParticipants * parseInt(e['HeadPoint'] ?? '0'))
+    const totalPoints = computed(() => {
+      const hpSumList = programmes.value.map(
+        (e) => e.totalParticipants * parseInt(e['HeadPoint'] ?? '0')
+      )
+      const wpSumList = programmes.value.map((e) => parseInt(e.WinningPoint))
+      const lopSumList = programmes.value.map((e) =>
+        parseInt(e.totalParticipants > 0 ? e.LoPoint : 0)
+      )
 
-      if (val.length == 0) {
-        return 0
-      }
+      const hpSum =
+        hpSumList.length > 1
+          ? hpSumList.reduce((a, b) => a + b)
+          : hpSumList.length == 1
+            ? hpSumList[0]
+            : 0
+      const wpSum =
+        wpSumList.length > 1
+          ? wpSumList.reduce((a, b) => a + b)
+          : wpSumList.length == 1
+            ? wpSumList[0]
+            : 0
+      const lopSum =
+        lopSumList.length > 1
+          ? lopSumList.reduce((a, b) => a + b)
+          : lopSumList.length == 1
+            ? lopSumList[0]
+            : 0
 
-      return val.reduce((a, b) => a + b)
+      return hpSum + wpSum + lopSum
     })
 
     const logout = async () => {
@@ -120,7 +140,7 @@ export default {
       dayjs,
       computeDateTime,
       computeCardBackground,
-      overallPoints,
+      totalPoints,
       logout
     }
   }

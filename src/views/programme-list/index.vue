@@ -5,7 +5,7 @@
         <template #title>
           <a-row align="middle">
             <a-col flex="1">
-              <h2 style="font-size: 16px;">Programmes <span style="color: green;">(Points: {{ overallPoints }})</span>
+              <h2 style="font-size: 16px;">Programmes <span style="color: green;">(Points: {{ totalPoints }})</span>
               </h2>
             </a-col>
             <a-col>
@@ -65,9 +65,6 @@
                               Lo Points: {{ item.totalParticipants > 0 ? item['LoPoint'] : 0 }} /
                               {{ item['LoPoint'] }}</a-tag>
                           </a-col>
-                          <!-- <a-col v-if="item.OnlyPresident === 'TRUE'">
-                            <a-tag color="red">President Only</a-tag>
-                          </a-col> -->
                         </a-row>
                       </a-col>
                       <a-col style="text-align: center;">

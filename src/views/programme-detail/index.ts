@@ -79,8 +79,6 @@ export default {
       for (const x of Object.entries(data)) {
         const k = x[0].toLowerCase().replace(/\s/g, '_')
         const v = x[1]
-        console.log(k)
-        console.log(v)
         programmeDetail.value[k] = v
       }
 

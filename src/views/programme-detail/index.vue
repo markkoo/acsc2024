@@ -26,11 +26,9 @@
           <h6 style="line-height: 1.4; display: inline;">Participles: </h6>
           <a-tag v-for="(item, index) in programmeDetail?.participants" :key="index">{{ item[0] }}</a-tag>
         </div>
-        <h6 style="line-height: 1.4;">Head Point: <b>{{ programmeDetail?.headpoint }}</b></h6>
-        <h6 style="line-height: 1.4;">Target Head Point: <b>{{ programmeDetail?.headpoint }} / {{
-        programmeDetail?.minparticipant }}</b></h6>
-        <h6 style="line-height: 1.4;">Winning Point: <b>{{ programmeDetail?.winningpoint }}</b></h6>
-        <h6 style="line-height: 1.4;">Target Winning Point: <b>{{ programmeDetail?.winningpoint }} / {{
+        <!-- <pre>{{programmeDetail}}</pre> -->
+        <h6 style="line-height: 1.4;">Head Point: <b>{{ programmeDetail?.headpoint }} / {{ programmeDetail?.targetjbeheadpoint }}</b></h6>
+        <h6 style="line-height: 1.4;">Winning Point: <b>{{ programmeDetail?.winningpoint }} / {{
         programmeDetail?.targetjbewinningpoint }}</b></h6>
         <h6 style="line-height: 1.4;">Minimum Participants: <b>{{ programmeDetail?.minparticipant }}</b></h6>
         <h6 style="line-height: 1.4;">Only President: <a-checkbox :checked="programmeDetail?.onlypresident == 'TRUE'"

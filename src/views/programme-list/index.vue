@@ -22,6 +22,7 @@
                     <a-row :gutter="16">
                       <a-col flex="1">
                         <h4 style="font-weight: 600;">{{ item.Programe }}</h4>
+                        <h5 style="font-weight: 500;">{{ item.Description }}</h5>
                         <p>{{ computeDateTime(item) }}</p>
                       </a-col>
                       <a-col>
@@ -43,7 +44,7 @@
                       </a-col>
                     </a-row>
                     <a-divider style="margin: 8px 0;"></a-divider>
-                    {{item}}
+                    <!-- {{item}} -->
                     <a-row>
                       <a-col flex="1">
                         <a-row>
@@ -57,9 +58,14 @@
                               Winning Points: {{ item["WinningPoint"] ?? 0 }} /
                               {{ item['TargetJBEWinningPoint'] ?? 0 }}</a-tag>
                           </a-col>
-                          <a-col v-if="item.OnlyPresident = 'TRUE'" flex="100%">
-                            <a-tag color="yellow">President Only</a-tag>
+                          <a-col v-if="item.LoPoint > 0">
+                            <a-tag color="blue">
+                              Lo Points: {{ item.totalParticipants > 0 ? item['LoPoint'] : 0 }} /
+                              {{ item['LoPoint'] }}</a-tag>
                           </a-col>
+                          <!-- <a-col v-if="item.OnlyPresident === 'TRUE'">
+                            <a-tag color="red">President Only</a-tag>
+                          </a-col> -->
                         </a-row>
                       </a-col>
                       <a-col style="text-align: center;">

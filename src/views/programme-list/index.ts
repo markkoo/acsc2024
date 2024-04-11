@@ -84,7 +84,6 @@ export default {
         programmeResponse.table.rows
       )
       const parsedMembers = tableToJson(memberResponse.table.cols, memberResponse.table.rows)
-      console.log(parsedMembers)
 
       programmes.value = parsedProgrammes.map((e: Record<string, any>) => ({
         ...e,

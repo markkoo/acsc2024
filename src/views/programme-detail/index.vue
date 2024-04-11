@@ -5,6 +5,7 @@
         <a-row style="padding-bottom: 8px;">
           <a-col flex="1">
             <h3 style="font-weight: 600;">{{ programmeDetail?.programe }}</h3>
+            <h3 style="font-weight: 500;">{{ programmeDetail?.description }}</h3>
             <h6>{{ computedDateTime }}</h6>
           </a-col>
           <a-col>
@@ -26,13 +27,16 @@
           <h6 style="line-height: 1.4; display: inline;">Participles: </h6>
           <a-tag v-for="(item, index) in programmeDetail?.participants" :key="index">{{ item[0] }}</a-tag>
         </div>
-        <!-- <pre>{{programmeDetail}}</pre> -->
-        <h6 style="line-height: 1.4;">Head Point: <b>{{ programmeDetail?.headpoint }} / {{ programmeDetail?.targetjbeheadpoint }}</b></h6>
+        <br />
+      
+        <h6 style="line-height: 1.4;">Head Point: <b>{{ programmeDetail?.participants.length * parseInt(programmeDetail?.headpoint) }} / {{ programmeDetail?.targetjbeheadpoint }}</b></h6>
         <h6 style="line-height: 1.4;">Winning Point: <b>{{ programmeDetail?.winningpoint }} / {{
         programmeDetail?.targetjbewinningpoint }}</b></h6>
         <h6 style="line-height: 1.4;">Minimum Participants: <b>{{ programmeDetail?.minparticipant }}</b></h6>
         <h6 style="line-height: 1.4;">Only President: <a-checkbox :checked="programmeDetail?.onlypresident == 'TRUE'"
             readonly></a-checkbox></h6>
+        <h6 v-if="programmeDetail?.lopoint > 0" style="line-height: 1.4;">Lo Point: <b>{{ programmeDetail.participants.length  > 0 ? programmeDetail.lopoint : 0 }} / {{
+        programmeDetail?.lopoint }}</b></h6>
         <br/>
         <h6>Remark:</h6>
         <p>{{ programmeDetail?.remark ?? '~ No Remark ~' }}</p>

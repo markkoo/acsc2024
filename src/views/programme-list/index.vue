@@ -44,11 +44,13 @@
                       </a-col>
                     </a-row>
                     <a-divider style="margin: 8px 0;"></a-divider>
-                    <!-- {{item}} -->
                     <a-row>
                       <a-col flex="1">
                         <a-row>
-                          <a-col>
+                          <a-col v-if="item.OnlyPresident === 'TRUE'" flex="100%">
+                            <a-tag color="yellow">President Only</a-tag>
+                          </a-col>
+                          <a-col flex="100%">
                             <a-tag color="orange">
                               Head Points: {{ item.totalParticipants * parseInt(item["HeadPoint"] ?? '0') }} /
                               {{ item['TargetJBEHeadPoint'] ?? 0 }}</a-tag>

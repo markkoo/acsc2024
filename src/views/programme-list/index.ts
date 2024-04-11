@@ -78,11 +78,13 @@ export default {
       const programmeResponse = res[0]
       const memberResponse = res[1]
 
+
       const parsedProgrammes = tableToJson(
         programmeResponse.table.cols,
         programmeResponse.table.rows
       )
       const parsedMembers = tableToJson(memberResponse.table.cols, memberResponse.table.rows)
+      console.log(parsedMembers)
 
       programmes.value = parsedProgrammes.map((e: Record<string, any>) => ({
         ...e,

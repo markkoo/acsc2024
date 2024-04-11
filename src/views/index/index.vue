@@ -11,7 +11,7 @@
           <a-form-item label="Select your name" name="member"
             :rules="[{ required: true, message: 'This field is required' }]">
             <a-select v-model:value="formState.member" style="width: 100%;" :disabled="isLoading">
-              <a-select-option :value="null">Pick an option</a-select-option>
+              <a-select-option :value="null">Select Your Name</a-select-option>
               <a-select-option v-for="(item, index) in members" :key="index" :value="item.Name">
                 {{ item.Name }}
               </a-select-option>

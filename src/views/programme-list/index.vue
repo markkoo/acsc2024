@@ -47,18 +47,18 @@
                     <a-row>
                       <a-col flex="1">
                         <a-row>
-                          <a-col v-if="item.OnlyPresident = 'TRUE'" flex="100%">
-                            <a-tag color="yellow">President Only</a-tag>
-                          </a-col>
-                          <a-col flex="100%">
+                          <a-col>
                             <a-tag color="orange">
                               Head Points: {{ item.totalParticipants * parseInt(item["HeadPoint"] ?? '0') }} /
                               {{ item['TargetJBEHeadPoint'] ?? 0 }}</a-tag>
                           </a-col>
-                          <a-col flex="100%">
+                          <a-col>
                             <a-tag color="green">
                               Winning Points: {{ item["WinningPoint"] ?? 0 }} /
                               {{ item['TargetJBEWinningPoint'] ?? 0 }}</a-tag>
+                          </a-col>
+                          <a-col v-if="item.OnlyPresident = 'TRUE'" flex="100%">
+                            <a-tag color="yellow">President Only</a-tag>
                           </a-col>
                         </a-row>
                       </a-col>

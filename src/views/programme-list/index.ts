@@ -72,20 +72,31 @@ export default {
       return `Date time not well specified.`
     }
 
+    const tagOptions: Ref<Array<Record<string, any>>> = ref([])
+
     onMounted(async () => {
-      const res = await Promise.all([getData('Programmes'), getData('MemberVSProgramme')])
+      const res = await Promise.all([
+        getData('Programmes'),
+        getData('MemberVSProgramme'),
+        getData('ProgrammesXTags')
+      ])
 
       const programmeResponse = res[0]
       const memberResponse = res[1]
+      const tagResponse = res[2]
 
       const parsedProgrammes = tableToJson(
         programmeResponse.table.cols,
         programmeResponse.table.rows
       )
       const parsedMembers = tableToJson(memberResponse.table.cols, memberResponse.table.rows)
+      const parsedTags = tableToJson(tagResponse.table.cols, tagResponse.table.rows)
 
       programmes.value = parsedProgrammes.map((e: Record<string, any>) => ({
         ...e,
+        tags: Object.entries(parsedTags.filter((t) => t.Programe == e.Programe)[0])
+          .filter((x) => x[1] === 'TRUE')
+          .map((e) => e[0]),
         isJoined:
           Object.entries(parsedMembers[parsedProgrammes.indexOf(e)]).filter(
             (e: any) => e[0] === route.params.member && e[1] === 'TRUE'
@@ -94,6 +105,13 @@ export default {
           (e: any) => e === 'TRUE'
         ).length
       }))
+
+      tagOptions.value = Object.keys(parsedTags[0])
+        .filter((e) => e != 'id' && e != 'Programe')
+        .map((e) => ({
+          label: e,
+          value: e
+        }))
     })
 
     const totalPoints = computed(() => {
@@ -135,13 +153,29 @@ export default {
       })
     }
 
+    const searchState = ref({
+      keyword: '',
+      filter: null
+    })
+
+    const computedProgrammes = computed(() => {
+      return programmes.value.filter(
+        (e) =>
+          e.Programe.toLowerCase().includes(searchState.value.keyword.toLowerCase()) &&
+          (searchState.value.filter != null ? e.tags.includes(searchState.value.filter) : true)
+      )
+    })
+
     return {
       programmes,
       dayjs,
       computeDateTime,
       computeCardBackground,
       totalPoints,
-      logout
+      logout,
+      tagOptions,
+      searchState,
+      computedProgrammes
     }
   }
 }

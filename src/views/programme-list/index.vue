@@ -13,8 +13,26 @@
             </a-col>
           </a-row>
         </template>
+        <a-form layout="vertical" :model="searchState">
+          <a-row align="stretch" :gutter="16">
+            <a-col flex="1">
+              <a-form-item label="Search" name="keyword">
+                <a-input v-model:value="searchState.keyword" style="height: 32px; padding: 0 12px;"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col flex="1">
+              <a-form-item label="Filter" name="filter">
+                <a-select v-model:value="searchState.filter" allow-clear>
+                  <a-select-option :value="null">Show All</a-select-option>
+                  <a-select-option v-for="(item, index) in tagOptions" :key="index" :value="item.value">{{ item.label
+                    }}</a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+          </a-row>
+        </a-form>
         <a-row :gutter="[0, 16]">
-          <a-col v-for="(item, index) in programmes" :key="index" flex="100%">
+          <a-col v-for="(item, index) in computedProgrammes" :key="index" flex="100%">
             <router-link :to="{ name: 'programme-detail', params: { programmeId: item.id } }">
               <a-card :style="`${computeCardBackground(item)}; position: relative;`">
                 <a-row align="middle" :gutter="16">

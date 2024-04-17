@@ -17,7 +17,9 @@ export const tableToJson = (
       const key = cols[y].label
       const value = x.c[y]?.f ?? x.c[y]?.v
 
-      data[key] = value
+      if (key != '') {
+        data[key] = value
+      }
     }
 
     response.push(data)

@@ -29,9 +29,9 @@ const router: Router = createRouter({
           }
         },
         {
-          path: 'dress-code',
-          name: 'dress-code',
-          component: () => import('@/views/dress-code/index.vue'),
+          path: 'member-list',
+          name: 'member-list',
+          component: () => import('@/views/member-list/index.vue'),
           meta: {
             needAuth: true
           }
@@ -40,14 +40,6 @@ const router: Router = createRouter({
           path: 'qr',
           name: 'qr-code',
           component: () => import('@/views/qr-code/index.vue'),
-          meta: {
-            needAuth: true
-          }
-        },
-        {
-          path: 'programmes/:programmeId',
-          name: 'programme-detail',
-          component: () => import('@/views/programme-detail/index.vue'),
           meta: {
             needAuth: true
           }

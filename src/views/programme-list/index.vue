@@ -33,7 +33,7 @@
         </a-form>
         <a-row :gutter="[0, 16]">
           <a-col v-for="(item, index) in computedProgrammes" :key="index" flex="100%">
-            <router-link :to="{ name: 'programme-detail', params: { programmeId: item.id } }">
+            <a @click="selectProgramme(item)">
               <a-card :style="`${computeCardBackground(item)}; position: relative;`">
                 <a-row align="middle" :gutter="16">
                   <a-col flex="1">
@@ -102,11 +102,56 @@
                   </a-col>
                 </a-row>
               </a-card>
-            </router-link>
+            </a>
           </a-col>
         </a-row>
       </a-card>
     </div>
+
+    <a-modal v-model:open="isModalActive" title="Programme Detail" :after-close="closeProgramme">
+      <template #footer></template>
+      <div v-if="selectedProgramme != null">
+        <h3 style="font-weight: 600;">{{ selectedProgramme?.Programe }}</h3>
+        <h3 style="font-weight: 500;">{{ selectedProgramme?.Description }}</h3>
+        <h6 style="margin-bottom: 16px;">{{ computedDateTime }}</h6>
+        <h6 style="line-height: 1.4;">Joined Participants: <b>{{ selectedProgramme?.totalParticipants }}</b></h6>
+        <h6 style="line-height: 1.4;">Venue: <b>{{ selectedProgramme?.Venue }}</b></h6>
+        <h6 style="line-height: 1.4;">Dress Code: <b>{{ selectedProgramme["Dress Code"] }}</b></h6>
+        <br />
+        <h6 style="line-height: 1.4;">Leader: <b>{{ selectedProgramme?.Leader }}</b></h6>
+        <div>
+          <h6 style="line-height: 1.4; display: inline;">Participles: </h6>
+          <a-tag v-for="(item, index) in selectedProgramme?.participants" :key="index">{{ item[0] }}</a-tag>
+        </div>
+        <br />
+
+        <h6 style="line-height: 1.4;">Head Point: <b>{{ selectedProgramme?.participants.length *
+          parseInt(selectedProgramme?.HeadPoint) }} / {{ selectedProgramme?.TargetJBEHeadPoint }}</b></h6>
+        <h6 style="line-height: 1.4;">Winning Point: <b>{{ selectedProgramme?.WinningPoint }} / {{
+          selectedProgramme?.TargetJBEWinningPoint }}</b></h6>
+        <h6 style="line-height: 1.4;">Minimum Participants: <b>{{ selectedProgramme?.MinParticipant }}</b></h6>
+        <h6 style="line-height: 1.4;">Only President: <a-checkbox :checked="selectedProgramme?.OnlyPresident == 'TRUE'"
+            readonly></a-checkbox></h6>
+        <h6 v-if="selectedProgramme?.LoPoint > 0" style="line-height: 1.4;">Lo Point: <b>{{
+          selectedProgramme.participants.length > 0 ? selectedProgramme.LoPoint : 0 }} / {{
+              selectedProgramme?.LoPoint }}</b></h6>
+        <br />
+        <h6>Remark:</h6>
+        <p>{{ selectedProgramme?.Remark ?? '~ No Remark ~' }}</p>
+
+        <a-row v-if="!hasExpired" :gutter="16" style="padding-top: 16px;">
+          <a-col v-if="selectedProgramme?.joined == true" flex="1">
+            <a-button style="width: 100%;" type="default" size="large" :disabled="isJoinProcessing"
+              @click="toggleJoin(false)">{{ isJoinProcessing ? 'Please wait ...' : 'Unjoin' }}</a-button>
+          </a-col>
+          <a-col v-else-if="selectedProgramme?.joined == false" flex="1">
+            <a-button style="width: 100%;" type="primary" size="large" :disabled="isJoinProcessing"
+              @click="toggleJoin(true)">{{ isJoinProcessing ? 'Please wait ...' : 'Join' }}</a-button>
+          </a-col>
+        </a-row>
+        <h3 v-else style="margin-top: 24px; font-weight: 700;">The event has expired</h3>
+      </div>
+    </a-modal>
   </div>
 </template>
 

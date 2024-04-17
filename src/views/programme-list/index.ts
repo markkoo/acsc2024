@@ -2,10 +2,11 @@ import { Ref, computed, onMounted, ref } from 'vue'
 import dayjs from 'dayjs'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
-import { getData } from '@/apis/spreadsheet'
+import { getData, updateData } from '@/apis/spreadsheet'
 import { tableToJson } from '@/utils/table-to-json'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { CRUD } from '@/enums'
 dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
 
@@ -16,7 +17,10 @@ export default {
     const router = useRouter()
     const store = useStore()
 
+    const isLoading = ref(false)
+
     const programmes: Ref<Array<Record<string, any>>> = ref([])
+    const currentMemberCol: Ref<any> = ref(null)
 
     const computeCardBackground = (item: Record<string, any>) => {
       let startDate = dayjs(item['Start Date'].split('-').reverse().join('-'))
@@ -74,7 +78,7 @@ export default {
 
     const tagOptions: Ref<Array<Record<string, any>>> = ref([])
 
-    onMounted(async () => {
+    const getPageData = async () => {
       const res = await Promise.all([
         getData('Programmes'),
         getData('MemberVSProgramme'),
@@ -103,7 +107,14 @@ export default {
           ).length > 0,
         totalParticipants: Object.values(parsedMembers[parsedProgrammes.indexOf(e)]).filter(
           (e: any) => e === 'TRUE'
-        ).length
+        ).length,
+        participants: Object.entries(parsedMembers[parsedProgrammes.indexOf(e)]).filter(
+          (e: any) => e[1] === 'TRUE'
+        ),
+        joined:
+          Object.entries(parsedMembers[parsedProgrammes.indexOf(e)]).filter(
+            (e: any) => e[1] === 'TRUE' && e[0] == route.params.member
+          ).length > 0
       }))
 
       tagOptions.value = Object.keys(parsedTags[0])
@@ -112,6 +123,20 @@ export default {
           label: e,
           value: e
         }))
+
+      currentMemberCol.value = memberResponse.table.cols.filter(
+        (e: any) => e.label == route.params.member
+      )[0]
+
+      if (selectedProgramme.value != null) {
+        selectedProgramme.value = programmes.value.filter(
+          (e) => e.Programe === selectedProgramme.value?.Programe
+        )[0]
+      }
+    }
+
+    onMounted(async () => {
+      await getPageData()
     })
 
     const totalPoints = computed(() => {
@@ -166,6 +191,96 @@ export default {
       )
     })
 
+    const isModalActive: Ref<boolean> = ref(false)
+    const selectedProgramme: Ref<Record<string, any> | null> = ref(null)
+
+    const selectProgramme = (val: Record<string, any>) => {
+      selectedProgramme.value = val
+      isModalActive.value = true
+    }
+
+    const closeProgramme = () => {
+      isModalActive.value = false
+      selectedProgramme.value = null
+    }
+
+    const computedDateTime = computed(() => {
+      if (selectedProgramme.value == null) {
+        return ''
+      }
+
+      const start_date = selectedProgramme.value['Start Date']
+      const end_date = selectedProgramme.value['End Date']
+      const start_time = selectedProgramme.value['Start Time']
+      const end_time = selectedProgramme.value['End Time']
+      const day = selectedProgramme.value['Day']
+
+      if (
+        start_date != null &&
+        end_date != null &&
+        start_time != null &&
+        end_time != null &&
+        day != null
+      ) {
+        return `${start_time} ~ ${end_time} (Day ${day})`
+      }
+
+      return `Date time not well specified.`
+    })
+
+    const isJoinProcessing = ref(false)
+
+    const toggleJoin = async (bool: boolean) => {
+      isJoinProcessing.value = true
+
+      try {
+        const row = parseInt(`${selectedProgramme.value?.id}`) + 2
+        const col = currentMemberCol.value.id
+        await updateData(CRUD.update, 'MemberVSProgramme', {
+          coor: `${col}${row}`,
+          value: bool
+        })
+        await getPageData()
+        isJoinProcessing.value = false
+      } catch (error) {
+        isJoinProcessing.value = false
+        throw error
+      }
+    }
+
+    const hasExpired = computed(() => {
+      if (selectedProgramme.value != null) {
+        let startDate = dayjs(selectedProgramme.value['Start Date'].split('-').reverse().join('-'))
+        startDate = startDate.set(
+          'hour',
+          parseInt(selectedProgramme.value['Start Time'].replace(/[^\d]{1,}$/g, '').split('.')[0]) +
+            parseInt(selectedProgramme.value['Start Time'].includes('PM') ? `12` : `0`)
+        )
+        startDate = startDate.set(
+          'minute',
+          selectedProgramme.value['Start Time'].replace(/[^\d]{1,}$/g, '').split('.')[1]
+        )
+
+        let endDate = dayjs(selectedProgramme.value['End Date'].split('-').reverse().join('-'))
+        endDate = endDate.set(
+          'hour',
+          parseInt(selectedProgramme.value['End Time'].replace(/[^\d]{1,}$/g, '').split('.')[0]) +
+            parseInt(selectedProgramme.value['End Time'].includes('PM') ? `12` : `0`)
+        )
+        endDate = endDate.set(
+          'minute',
+          selectedProgramme.value['End Time'].replace(/[^\d]{1,}$/g, '').split('.')[1]
+        )
+
+        if (startDate.isBefore(dayjs()) && endDate.isBefore(dayjs())) {
+          // Expired event
+          return true
+        }
+      }
+
+      return false
+    })
+
     return {
       programmes,
       dayjs,
@@ -175,7 +290,16 @@ export default {
       logout,
       tagOptions,
       searchState,
-      computedProgrammes
+      computedProgrammes,
+      isModalActive,
+      selectedProgramme,
+      selectProgramme,
+      closeProgramme,
+      toggleJoin,
+      hasExpired,
+      isLoading,
+      computedDateTime,
+      isJoinProcessing
     }
   }
 }

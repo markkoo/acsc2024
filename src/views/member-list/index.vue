@@ -26,42 +26,35 @@
         </a-form>
         <div style="overflow: auto; width: 100%; height: 73vh; border-radius: 6px; border: 1px solid #dadada;">
           <div
-            style="display: flex; align-items: center; position: sticky; top: 0; background-color: white; border-bottom: 1px solid #dadada; width: fit-content;">
-            <div style="flex: 1 0 100px; max-width: 100px; width: 100px; padding: 8px 16px;">
-              <span style="font-weight: bold; white-space: nowrap;">Name</span>
-            </div>
-            <div style="flex: 1 0 100px; max-width: 100px; width: 100px; padding: 8px 16px;">
+            style="display: flex; align-items: center; position: sticky; top: 0; background-color: white; border-bottom: 1px solid #dadada; width: fit-content; font-size: 12px;">
+            <div style="flex: 1 0 100px; max-width: 100px; width: 100px; padding: 8px 8px;">
               <span style="font-weight: bold; white-space: nowrap;">Angel</span>
             </div>
-            <div style="flex: 1 0 250px; max-width: 250px; width: 250px; padding: 8px 16px;">
-              <span style="font-weight: bold; white-space: nowrap;">Available Time</span>
+            <div style="flex: 1 0 100px; max-width: 100px; width: 100px; padding: 8px 8px;">
+              <span style="font-weight: bold; white-space: nowrap;">Name</span>
             </div>
-            <div style="flex: 1 0 150px; max-width: 150px; width: 150px; padding: 8px 16px;">
-              <span style="font-weight: bold; white-space: nowrap;">Remark</span>
+            <div style="flex: 1 0 150px; max-width: 150px; width: 150px; padding: 8px 8px;">
+              <span style="font-weight: bold; white-space: nowrap;">Member Available Time</span>
             </div>
-            <div style="flex: 1 0 200px; max-width: 200px; width: 200px; padding: 8px 16px;">
+            <div style="flex: 1 0 150px; max-width: 150px; width: 150px; padding: 8px 8px;">
               <span style="font-weight: bold; white-space: nowrap;">Programme</span>
             </div>
           </div>
           <div v-if="computedMembers.length > 0">
             <div v-for="(item, index) in computedMembers" :key="index" class="table-row"
               style="display: flex; align-items: center; border-bottom: 1px solid #dadada; width: fit-content;">
-              <div style="flex: 1 0 100px; max-width: 100px; width: 100px; padding: 8px 16px;">
-                <span class="clamp-1">{{ item.Name }}</span>
-              </div>
-              <div style="flex: 1 0 100px; max-width: 100px; width: 100px; padding: 8px 16px;">
+              <div style="flex: 1 0 100px; max-width: 100px; width: 100px; padding: 8px 8px;">
                 <span class="clamp-1">{{ item.Angel }}</span>
               </div>
-              <div style="flex: 1 0 250px; max-width: 250px; width: 250px; padding: 8px 16px;">
+              <div style="flex: 1 0 100px; max-width: 100px; width: 100px; padding: 8px 8px;">
+                <span class="clamp-1">{{ item.Name }}</span>
+              </div>
+              <div style="flex: 1 0 150px; max-width: 150px; width: 150px; padding: 8px 8px;word-wrap: break-word;line-height:1.1">
                 <span>{{ item.AvailableTime }}</span>
               </div>
               <div
-                style="flex: 1 0 150px; max-width: 150px; width: 150px; padding: 8px 16px; display: flex; flex-direction: column;">
-                <span>Start: {{ item["Start Date"] }}</span>
-                <span>End: {{ item["End Date"] }}</span>
-                <span>Day: {{ item.Day }}</span>
-              </div>
-              <div style="flex: 1 0 200px; max-width: 200px; width: 200px; padding: 8px 16px;">
+                style="flex: 1 0 150px; max-width: 150px; width: 150px; padding: 8px 8px; display: flex; flex-direction: column;">
+                <b>D{{ item.Day }} {{ item["Start Time"] }} - {{ item["End Time"] }}</b>
                 <span class="clamp-1">{{ item.Programe }}</span>
               </div>
             </div>
@@ -84,10 +77,12 @@
 
 .clamp-1 {
   @include ellipsis(1, 1.5, 14px);
+  font-size:12px !important;
 }
 
 .table-row {
   background-color: white;
+  font-size:12px !important;
 
   &:nth-of-type(2n + 1) {
     background-color: #fafafa;

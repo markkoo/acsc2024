@@ -114,8 +114,10 @@
         <h3 style="font-weight: 600;">{{ selectedProgramme?.Programe }}</h3>
         <h3 style="font-weight: 500;">{{ selectedProgramme?.Description }}</h3>
         <h6 style="margin-bottom: 16px;">{{ computedDateTime }}</h6>
+        <p style="font-weight: 500; white-space: pre-wrap;">{{ selectedProgramme?.Content }}</p>
         <h6 style="line-height: 1.4;">Joined Participants: <b>{{ selectedProgramme?.totalParticipants }}</b></h6>
-        <h6 style="line-height: 1.4;">Venue: <b>{{ selectedProgramme?.Venue }}</b></h6>
+        <br />
+        <h6 style="line-height: 1.4;">Venue: <b>{{ selectedProgramme?.VENUE }}</b></h6>
         <h6 style="line-height: 1.4;">Dress Code: <b>{{ selectedProgramme["Dress Code"] }}</b></h6>
         <br />
         <h6 style="line-height: 1.4;">Leader: <b>{{ selectedProgramme?.Leader }}</b></h6>

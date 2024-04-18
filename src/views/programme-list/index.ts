@@ -21,6 +21,7 @@ export default {
 
     const programmes: Ref<Array<Record<string, any>>> = ref([])
     const currentMemberCol: Ref<any> = ref(null)
+    const dressCodes: Ref<Array<Record<string, any>>> = ref([])
 
     const computeCardBackground = (item: Record<string, any>) => {
       let startDate = dayjs(item['Start Date'].split('-').reverse().join('-'))
@@ -82,12 +83,14 @@ export default {
       const res = await Promise.all([
         getData('Programmes'),
         getData('MemberVSProgramme'),
-        getData('ProgrammesXTags')
+        getData('ProgrammesXTags'),
+        getData('Dress Codes')
       ])
 
       const programmeResponse = res[0]
       const memberResponse = res[1]
       const tagResponse = res[2]
+      const dressCodesResponse = res[3]
 
       const parsedProgrammes = tableToJson(
         programmeResponse.table.cols,
@@ -95,6 +98,10 @@ export default {
       )
       const parsedMembers = tableToJson(memberResponse.table.cols, memberResponse.table.rows)
       const parsedTags = tableToJson(tagResponse.table.cols, tagResponse.table.rows)
+      const parsedDressCodes = tableToJson(
+        dressCodesResponse.table.cols,
+        dressCodesResponse.table.rows
+      )
 
       programmes.value = parsedProgrammes.map((e: Record<string, any>) => ({
         ...e,
@@ -123,6 +130,8 @@ export default {
           label: e,
           value: e
         }))
+
+      dressCodes.value = parsedDressCodes
 
       currentMemberCol.value = memberResponse.table.cols.filter(
         (e: any) => e.label == route.params.member
@@ -281,6 +290,14 @@ export default {
       return false
     })
 
+    const computeDressCode = (code: string) => {
+      const target = dressCodes.value.filter((e) => e['Dress Code'] === code)
+
+      return target.length > 0
+        ? `https://lh3.googleusercontent.com/d/${target[0].Link.split('/')[5]}=w300`
+        : null
+    }
+
     return {
       programmes,
       dayjs,
@@ -299,7 +316,8 @@ export default {
       hasExpired,
       isLoading,
       computedDateTime,
-      isJoinProcessing
+      isJoinProcessing,
+      computeDressCode
     }
   }
 }

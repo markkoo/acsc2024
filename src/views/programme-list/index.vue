@@ -116,7 +116,16 @@
         <h6 style="margin-bottom: 16px;">{{ computedDateTime }}</h6>
         <h6 style="line-height: 1.4;">Joined Participants: <b>{{ selectedProgramme?.totalParticipants }}</b></h6>
         <h6 style="line-height: 1.4;">Venue: <b>{{ selectedProgramme?.Venue }}</b></h6>
-        <h6 style="line-height: 1.4;">Dress Code: <b>{{ selectedProgramme["Dress Code"] }}</b></h6>
+        <div style="display: flex; flex-direction: column;">
+          <h6 style="line-height: 1.4;">Dress Code:</h6>
+          <div
+            style="display: flex; justify-content: flex-start; align-items: flex-start; flex-wrap: wrap; gap: 8px 8px;">
+            <div v-for="(item, index) in selectedProgramme['Dress Code'].split(' / ')" :key="index">
+              <a-image :width="100" :height="100" :src="computeDressCode(item)"
+                style="object-fit: contain; border: 1px solid #eaeaea;"></a-image>
+            </div>
+          </div>
+        </div>
         <br />
         <h6 style="line-height: 1.4;">Leader: <b>{{ selectedProgramme?.Leader }}</b></h6>
         <div>

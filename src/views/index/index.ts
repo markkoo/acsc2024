@@ -72,7 +72,7 @@ export default {
           (e: any) => e.Name === formState.value.member
         )
 
-        if (currentSelectedUser.length > 0 && currentSelectedUser[0].Pin === formState.value.pin) {
+        if (currentSelectedUser.length > 0) {
           await saveAuthData(
             members.value.indexOf(currentSelectedUser[0]) + 2,
             currentSelectedUser[0]

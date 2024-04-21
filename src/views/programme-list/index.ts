@@ -28,7 +28,7 @@ export default {
       startDate = startDate.set(
         'hour',
         parseInt(item['Start Time'].replace(/[^\d]{1,}$/g, '').split('.')[0]) +
-          parseInt(item['Start Time'].includes('PM') ? `12` : `0`)
+        parseInt(item['Start Time'].includes('PM') ? `12` : `0`)
       )
       startDate = startDate.set(
         'minute',
@@ -39,7 +39,7 @@ export default {
       endDate = endDate.set(
         'hour',
         parseInt(item['End Time'].replace(/[^\d]{1,}$/g, '').split('.')[0]) +
-          parseInt(item['End Time'].includes('PM') ? `12` : `0`)
+        parseInt(item['End Time'].includes('PM') ? `12` : `0`)
       )
       endDate = endDate.set('minute', item['End Time'].replace(/[^\d]{1,}$/g, '').split('.')[1])
 
@@ -48,7 +48,7 @@ export default {
         return 'background-color: #98fb98;'
       } else if (startDate.isBefore(dayjs()) && endDate.isBefore(dayjs())) {
         // Expired event
-        return 'background-color: #d3d3d3; opacity: 0.5;'
+        return 'display:none'
       } else if (startDate.isAfter(dayjs()) && endDate.isAfter(dayjs())) {
         // Future event
         return 'background-color: white;'
@@ -263,7 +263,7 @@ export default {
         startDate = startDate.set(
           'hour',
           parseInt(selectedProgramme.value['Start Time'].replace(/[^\d]{1,}$/g, '').split('.')[0]) +
-            parseInt(selectedProgramme.value['Start Time'].includes('PM') ? `12` : `0`)
+          parseInt(selectedProgramme.value['Start Time'].includes('PM') ? `12` : `0`)
         )
         startDate = startDate.set(
           'minute',
@@ -274,7 +274,7 @@ export default {
         endDate = endDate.set(
           'hour',
           parseInt(selectedProgramme.value['End Time'].replace(/[^\d]{1,}$/g, '').split('.')[0]) +
-            parseInt(selectedProgramme.value['End Time'].includes('PM') ? `12` : `0`)
+          parseInt(selectedProgramme.value['End Time'].includes('PM') ? `12` : `0`)
         )
         endDate = endDate.set(
           'minute',

@@ -18,14 +18,14 @@
               <router-link :to="{ name: `member-list` }">Members</router-link>
             </a-button>
           </a-col>
-          <a-col flex="1">
+          <!-- <a-col flex="1">
             <a-button type="text" style="width: 100%; height: 100%; padding-top: 8px; padding-bottom: 8px;"
               size="small">
               <router-link :to="{ name: `qr-code` }">
                 QR
               </router-link>
             </a-button>
-          </a-col>
+          </a-col> -->
         </a-row>
       </a-card>
     </div>

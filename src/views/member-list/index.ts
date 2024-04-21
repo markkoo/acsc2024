@@ -72,13 +72,83 @@ export default {
       console.log(members.value)
     })
 
+   
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 
+
     const computedMembers = computed(() => {
       return members.value.filter(
         (e) =>
-          e.Name.includes(searchState.value.member ?? '') &&
-          e.Angel.includes(searchState.value.angel ?? '')
+          e.Name.includes(searchState.value.member ?? '')
       )
     })
+
+    const computedMembers1 = computed(() => {
+      return members.value.filter(
+        (e) =>
+          e.Angel.includes('VP Alex')
+      )
+    })
+
+    const computedMembers2 = computed(() => {
+      return members.value.filter(
+        (e) =>
+          e.Angel.includes('VP Blue Chua')
+      )
+    })
+
+    const computedMembers3 = computed(() => {
+      return members.value.filter(
+        (e) =>
+          e.Angel.includes('VP Jayden Lim')
+      )
+    })
+
+    const computedMembers4= computed(() => {
+      return members.value.filter(
+        (e) =>
+          e.Angel.includes('Hannah Xienna Han')
+      )
+    })
+
+    const computedMembers5 = computed(() => {
+      return members.value.filter(
+        (e) =>
+          e.Angel.includes('SG Lina')
+      )
+    })
+
+    const computedMembers6 = computed(() => {
+      return members.value.filter(
+        (e) =>
+          e.Angel.includes('HT Brian Wong')
+      )
+    })
+
+    const computedMembers7 = computed(() => {
+      return members.value.filter(
+        (e) =>
+          e.Angel.includes('Boon Jie')
+      )
+    })
+
+    const computedMembers8 = computed(() => {
+      return members.value.filter(
+        (e) =>
+          e.Angel.includes('VP Cheah Li Ze')
+      )
+    })
+    // const computedMembers = computed(() => {
+    //   return members.value.filter(
+    //     (e) =>
+    //       
+    //       e.Angel.includes(searchState.value.angel ?? '')
+    //   )
+    // })
 
     const searchState: Ref<Record<string, any>> = ref({
       member: null,
@@ -87,6 +157,14 @@ export default {
 
     return {
       memberOptions,
+      computedMembers1,
+      computedMembers2,
+      computedMembers3,
+      computedMembers4,
+      computedMembers5,
+      computedMembers6,
+      computedMembers7,
+      computedMembers8,
       computedMembers,
       searchState
     }
